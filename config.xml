@@ -1,0 +1,42 @@
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gcccssubjectsadvising" version="2.1.0" versionCode="30">
+	<script id="gcccssubjectsadvising"/>
+		<name>GC CCS ADVISING</name>
+		<description>APPLICATION FOR STUDENTS OF GORDON COLLEGE - COLLEGE OF COMPUTER STUDIES</description>
+		<author>Ashbee Morgado</author>
+		
+		<gap:platforms>
+			<gap:platform name="ios"/>
+			<gap:platform name="android"/>
+			<gap:platform name="webos"/>
+			<gap:platform name="symbian.wrt"/>
+			<gap:platform name="blackberry" project="widgets"/>
+		</gap:platforms>
+
+		<gap:plugin name="org.apache.cordova.media"/>
+		<icon src="android/ldpi.png" platform="android" qualifier="ldpi" />
+		<icon src="android/mdpi.png" platform="android" qualifier="mdpi" />
+		<icon src="android/hdpi.png" platform="android" qualifier="hdpi" />
+		<icon src="android/xhdpi.png" platform="android" qualifier="xhdpi" />
+		<icon src="android/xxhdpi.png" platform="android" qualifier="xxhdpi" />
+		<icon src="android/fr-xxhdpi.png" platform="android" qualifier="fr-xxhdpi" />
+
+		<preference name="phonegap-version" value="3.6.3"/>
+		<feature name="http://api.phonegap.com/1.0/device"/>
+		<feature name="http://api.phonegap.com/1.0/media"/>
+		<access origin="*" subdomains="true"/>
+		<access uri="*" subdomains="true"/>
+		<access uri="http://google.com" subdomains="true"/>
+		<feature name="http://api.phonegap.com/1.0/network"/>
+		
+		<feature name="InAppBrowser">
+			<param name="android-package" value="org.apache.cordova.InAppBrowser"/>
+		</feature>
+
+		<feature name="Media">
+			<param name="android-package" value="org.apache.cordova.media.AudioHandler"/>
+		</feature>
+
+		<preference name="orientation" value="auto"/>
+		<preference name="fullscreen" value="true"/>
+		<preference name="target-device" value="universal"/>
+</widget>
