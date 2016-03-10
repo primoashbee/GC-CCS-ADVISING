@@ -296,7 +296,7 @@ div.content {
         <tr>
           <th>CODE</th>
           <th>TITLE</th>
-          <th>ACTION</th>
+          
          
         </tr>
       </thead>
@@ -304,23 +304,7 @@ div.content {
   
       </tbody>
     </table>
-	
-	<hr>
-			
-	<h3><center>Add subjetcts</center></h3>
-	<table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>CODE</th>
-          <th>TITLE</th>
-          <th>ACTION</th>
-         
-        </tr>
-      </thead>
-      <tbody id="tblAddEnlistment">
-  
-      </tbody>
-    </table>
+
 		</div>
       </div>
       <div class="modal-footer">
@@ -398,10 +382,16 @@ div.content {
 						$('#myModalLabel').html(xyz)
 						$("#studEnlistmentReview").empty()
 							$.each(data.LISTS,function(k,v){
-								$("#studEnlistmentReview").append(
+							/*	$("#studEnlistmentReview").append(
 								"<tr><td data-th=\"Code\">"+v.CODE+"<td data-th=\"TITLE\">"+v.TITLE+
 								"<td><button data-toggle=\"tooltip\" title=\"Approve\" class=\"btn glyphicon glyphicon-plus btn-success\"></button><button data-toggle=\"tooltip\" title=\"Decline\" class=\"btn glyphicon glyphicon-trash btn-danger\"></button></td>"
 								 );
+							*/
+								$("#studEnlistmentReview").append(
+								"<tr><td data-th=\"Code\">"+v.CODE+"<td data-th=\"TITLE\">"+v.TITLE+
+								"</td>"
+								 );
+							
 							});
 							$("#tblAddEnlistment").empty()
 							$.each(data.DIFF,function(k,v){
