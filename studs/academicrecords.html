@@ -230,7 +230,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Subject Lists
+           Select Semester
             <small id="program"></small>
           </h1>
 		  
@@ -241,16 +241,69 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main content -->
         <section class="content">
-	<div id="1st1st" class="panel-collapse no-more-tables collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
+		<div id="myTabContent" class="tab-content">
+			<div role="tabpanel" class="tab-pane fade  active in" id="1st" aria-labelledby="home-tab">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			  
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne">
+				  <h4 class="panel-title">
+				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#1st1st" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+					  First Semester
+					</a>
+				  </h4>
+				</div>
+				<div id="1st1st" class="panel-collapse no-more-tables collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
 				  <div class="panel-body">
 						<table class="table table-striped">
-						<thead><tr><th>School Year</th><th>Semester</th><th>CODE</th><th>TITLE</th><th>Grade</th></tr></thead>
-							<tbody id="tbl1st1st">
+						<thead><tr><th>ACADEMIC YEAR</th><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>
+							<tbody id="tblFirst">
+							
 							</tbody>
 						</table>
 				  </div>
 				</div>
-		
+			  </div>
+			  <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingTwo">
+				  <h4 class="panel-title">
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#1st2nd" aria-expanded="false" aria-controls="collapseTwo">
+					 Second Semester
+					</a>
+				  </h4>
+				</div>
+				<div id="1st2nd" class="panel-collapse collapse no-more-tables" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+				  <div class="panel-body">
+					<table class="table table-striped">
+						<thead><tr><th>ACADEMIC YEAR</th><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>
+							<tbody id="tblSecond">
+							</tbody>
+					</table>
+				  </div>
+				</div>
+			  </div>
+			   <div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingTwo">
+				  <h4 class="panel-title">
+					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#1stsum" aria-expanded="false" aria-controls="collapseTwo">
+					 Summer
+					</a>
+				  </h4>
+				</div>
+				<div id="1stsum" class="panel-collapse collapse no-more-tables" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
+				  <div class="panel-body">
+					<table class="table table-striped">
+						<thead><tr><th>ACADEMIC YEAR</th><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>
+							<tbody id="tblSummer">
+							</tbody>
+					</table>
+				  </div>
+				</div>
+			  </div>
+			</div>     
+			</div>
+			
+			</div>
      
 		
 						
@@ -312,7 +365,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		 acad_sem=[]
 		 year=""
 		 sem=""
-		 $.each(x.HISTORY,function(k,v){
+	/*	 $.each(x.HISTORY,function(k,v){
 		 
 		 if(year!=v.ACAD_YEAR){
 		 acad_year.push(v.ACAD_YEAR)
@@ -329,10 +382,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		 
 		 console.log(acad_sem)
 		 console.log(acad_year)
+		 */
 	$.each(x.HISTORY,function(k,v){
 		 //curr_year='SY '+v.ACAD_YEAR+ " SEMESTER "+v.ACAD_SEM
-			$('#tbl1st1st').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.ACAD_SEM+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td></tr>')
+		 var grade
+		 if(v.GRADE>=75){
+		 grade = "<span style=\"color:green\"><b>PASSED</b></span>"
 		 
+		 }else if(v.GRADE<75){
+		 grade = "<span style=\"color:red\"><b>FAILED</b></span>"
+		 
+		 }else{
+		 grade = "<span style=\"color:red\"><b>FAILED</b></span>"
+		 
+		 }
+		 if(v.ACAD_SEM=="1st Semester"){
+			$('#tblFirst').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td><td>'+grade+'</td></tr>')
+		 }else if(v.ACAD_SEM=="2nd Semester"){
+		 
+		 	$('#tblSecond').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td><td>'+grade+'</td></tr>')
+		 }else{
+			$('#tblSummer').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td><td>'+grade+'</td></tr>')
+				
+		}
 		 })
 		})
 			$('.logout').click(function(){
