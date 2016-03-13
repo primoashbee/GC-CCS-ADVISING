@@ -50,17 +50,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		padding-left: 150%; 
 		white-space: normal;
 		text-align:center;
+		font-size:1.5em;
 	}
 	.no-more-tables th { 
 		/* Behave  like a "row" */
 		display:none;
+		
 	}
  
 	.no-more-tables td:before { 
 		/* Now like a table header */
-		position: absolute;
+		position: relative;
 		/* Top/left values mimic padding */
-		top: 6px;
+
 		left: 3px;
 		width: 45%; 
 		padding-right: 10px; 
@@ -241,71 +243,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Main content -->
         <section class="content">
-		<div id="myTabContent" class="tab-content">
-			<div role="tabpanel" class="tab-pane fade  active in" id="1st" aria-labelledby="home-tab">
-			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-			  
-			  <div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingOne">
-				  <h4 class="panel-title">
-				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#1st1st" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-					  First Semester
-					</a>
-				  </h4>
-				</div>
-				<div id="1st1st" class="panel-collapse no-more-tables collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
-				  <div class="panel-body">
-						<table class="table table-striped">
-						<thead><tr><th>ACADEMIC YEAR</th><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>
-							<tbody id="tblFirst">
-							
-							</tbody>
-						</table>
-				  </div>
-				</div>
-			  </div>
-			  <div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingTwo">
-				  <h4 class="panel-title">
-					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#1st2nd" aria-expanded="false" aria-controls="collapseTwo">
-					 Second Semester
-					</a>
-				  </h4>
-				</div>
-				<div id="1st2nd" class="panel-collapse collapse no-more-tables" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
-				  <div class="panel-body">
-					<table class="table table-striped">
-						<thead><tr><th>ACADEMIC YEAR</th><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>
-							<tbody id="tblSecond">
-							</tbody>
-					</table>
-				  </div>
-				</div>
-			  </div>
-			   <div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingTwo">
-				  <h4 class="panel-title">
-					<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#1stsum" aria-expanded="false" aria-controls="collapseTwo">
-					 Summer
-					</a>
-				  </h4>
-				</div>
-				<div id="1stsum" class="panel-collapse collapse no-more-tables" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false">
-				  <div class="panel-body">
-					<table class="table table-striped">
-						<thead><tr><th>ACADEMIC YEAR</th><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>
-							<tbody id="tblSummer">
-							</tbody>
-					</table>
-				  </div>
-				</div>
-			  </div>
-			</div>     
-			</div>
-			
-			</div>
-     
+		<div id="academics_list">
 		
+	
+		</div>
 						
 									
 
@@ -354,6 +295,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="js/jquery.easypiechart.js"></script>
    <script>
    var x
+   
+		var year_lists=[]
+		var sem_lists=[]
+		var order_lists=[]
 		$(function(){
 		x = JSON.parse(localStorage.getItem('LISTS'))
 		$('#program').html(x.PROSPECTUS[0].NAME)
@@ -361,10 +306,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		$('.course').html(JSON.parse(localStorage.getItem('LISTS')).INFO.COURSE);
 		$('.name').html(JSON.parse(localStorage.getItem('LISTS')).INFO.LNAME+", "+JSON.parse(localStorage.getItem('LISTS')).INFO.FNAME+", "+JSON.parse(localStorage.getItem('LISTS')).INFO.MNAME);
 		curr_sem = "1123"
+
 		 acad_year=[]
 		 acad_sem=[]
 		 year=""
 		 sem=""
+		 $.each(x.HISTORY,function(k,v){
+		 if(order_lists.indexOf(v.ACAD_YEAR + " - " + v.ACAD_SEM)==-1){
+		order_lists.push(v.ACAD_YEAR + " - " + v.ACAD_SEM)
+		}
+			})
+		 
+		 
+		 
 	/*	 $.each(x.HISTORY,function(k,v){
 		 
 		 if(year!=v.ACAD_YEAR){
@@ -383,33 +337,86 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		 console.log(acad_sem)
 		 console.log(acad_year)
 		 */
+		
+			$('.logout').click(function(){
+			$('#mdlLogout').modal('show')
+			})
+	var ctr =0	
 	$.each(x.HISTORY,function(k,v){
+
+				if((v.ACAD_YEAR+ " - " +v.ACAD_SEM)==order_lists[ctr]){
+				var link1 = order_lists[ctr].replace("-","")
+				link2= link1.replace(" ","")
+				link3= link2.replace(" ","")
+				link4= link3.replace(" ","")
+				link5= link4.replace("-","")
+				
+				//console.log(link5)
+						
+						$('#academics_list').append(
+								'<div id=\"myTabContent\" class=\"tab-content\"><div role=\"tabpanel\" class=\"tab-pane fade  active in\" id=\"1st\" aria-labelledby="\home-tab\"'
+										+'<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">'
+										  +'<div class=\"panel panel-default\">'
+											+'<div class=\"panel-heading\" role=\"tab\" id=\"headingOne\">'
+											  +'<h4 class=\"panel-title\">'
+											+'<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href="#'+link5+'" aria-expanded=\"false\" aria-controls=\"collapseOne\" class=\"collapsed\">'
+											+order_lists[ctr]
+											+'	</a>'
+											 +' </h4>'
+											+'</div>'
+											+'<div id="'+link5+'" class=\"panel-collapse no-more-tables collapse\" role=\"tabpanel\" aria-labelledby=\"headingOne\" aria-expanded=\"false\">'
+											  +'<div class="panel-body">'
+													+'<table class=\"table table-striped\">'
+													+'<thead><tr><th>CODE</th><th>TITLE</th><th>Grade</th><th>Remarks</th></tr></thead>'
+														+'<tbody id="tbody'+link5+'">'
+														
+														+'</tbody>'
+													+'</table>'
+											  +'</div></div></div></div></div></div>'
+											  )
+				ctr++
+				}
+		 
+	})
+	$.each(x.HISTORY,function(k,v){
+	$.each(order_lists,function(k,z){
+		
+	if((v.ACAD_YEAR+ " - " +v.ACAD_SEM)==[z]){//console.log(order_lists[ctr])
+		
+	var link1 = z.replace("-","")
+				link2= link1.replace(" ","")
+				link3= link2.replace(" ","")
+				link4= link3.replace(" ","")
+				link5= link4.replace("-","")
+
 		 //curr_year='SY '+v.ACAD_YEAR+ " SEMESTER "+v.ACAD_SEM
-		 var grade
+		
+		
 		 if(v.GRADE>=75){
 		 grade = "<span style=\"color:green\"><b>PASSED</b></span>"
-		 
 		 }else if(v.GRADE<75){
 		 grade = "<span style=\"color:red\"><b>FAILED</b></span>"
-		 
 		 }else{
 		 grade = "<span style=\"color:red\"><b>FAILED</b></span>"
 		 
 		 }
 		 if(v.ACAD_SEM=="1st Semester"){
-			$('#tblFirst').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td><td>'+grade+'</td></tr>')
-		 }else if(v.ACAD_SEM=="2nd Semester"){
+			$("#tbody"+link5).append('<tr><td data-title=\"CODE: \">'+v.CODE+'</td><td data-title=\"TITLE: \">'+v.TITLE+'</td><td data-title=\"GRADE: \">'+v.GRADE+'</td><td data-title=\"REMARKS: \">'+grade+'</td></tr>')
+		}else if(v.ACAD_SEM=="2nd Semester"){
 		 
-		 	$('#tblSecond').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td><td>'+grade+'</td></tr>')
+			$("#tbody"+link5).append('<tr><td data-title=\"CODE: \">'+v.CODE+'</td><td data-title=\"TITLE: \">'+v.TITLE+'</td><td data-title=\"GRADE: \">'+v.GRADE+'</td><td data-title=\"REMARKS: \">'+grade+'</td></tr>')
 		 }else{
-			$('#tblSummer').append('<tr><td>'+v.ACAD_YEAR+'</td><td>'+v.CODE+'</td><td>'+v.TITLE+'</td><td>'+v.GRADE+'</td><td>'+grade+'</td></tr>')
+			$("#tbody"+link5).append('<tr><td data-title=\"CODE: \">'+v.CODE+'</td><td data-title=\"TITLE: \">'+v.TITLE+'</td><td data-title=\"GRADE: \">'+v.GRADE+'</td><td data-title=\"REMARKS: \">'+grade+'</td></tr>')
 				
 		}
-		 })
-		})
-			$('.logout').click(function(){
-			$('#mdlLogout').modal('show')
-			})
+	 	}
+
+	})
+	})	
+	
+	})
+	
+	
 			
 	
 	
