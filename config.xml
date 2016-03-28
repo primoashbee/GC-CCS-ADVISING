@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gcccssubjectsadvising" version="4.0.0" versionCode="40">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="gcccssubjectsadvising" version="4.0.1" versionCode="40">
 	<script id="gcccssubjectsadvising"/>
 		<name>GC CCS ADVISING</name>
 		<description>APPLICATION FOR STUDENTS OF GORDON COLLEGE - COLLEGE OF COMPUTER STUDIES</description>
