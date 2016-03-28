@@ -126,15 +126,19 @@ div.content {
 			  </div>
 			  <div class="modal-body">
 				<h1>Are you going to enroll this upcoming semester?</h1>
-				<div class="container">
-				<div class="col-xs-6 col-lg-6 col-md-6">
+				
+			
 				<button class="btn-lg btn-success" id="btnYes">Yes</button>
 				
 				<button class="btn-lg btn-danger" id="btnNo">No</button>
-				
+				<div id="divReasons" style="display:none">
+				<label for="txtReasons">Reason</label>
+				<input type="text" id="txtReasons" class="form-control">
+				<button id="btnSubmitReason" class="btn btn-success">Submit</button>
 				</div>
 				
-				</div>
+				
+			 
 			  </div>
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -209,11 +213,20 @@ $('#divLoading').removeClass('show')
 			location.href="studs/home.html";
 			})
 			$('#btnNo').click(function(){
-			
-			localStorage.setItem('valid','false')
-			location.href="studs/home.html";
+			$('#divReasons').show();
+		
 			})
+			$('#btnSubmitReason').click(function(){
+				reasons = $('#txtReasons').val()
+				if(reasons==""){
+				alert('Please provide reason')
+				}else{
+				localStorage.setItem('valid','false')
+				location.href="studs/home.html";
 			
+				}
+			
+			})
 		</script>
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
