@@ -17,7 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Ionicons -->
     <!-- Theme style -->
     <link rel="stylesheet" href="css/AdminLTE.min.css">
-  
+  		<link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/skins/skin-blue.min.css">
 	<style>
 #divLoading
@@ -229,13 +229,15 @@ div.content {
 			<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
 					<ul id="myTabs" class="nav nav-tabs" role="tablist">
 					  <li role="presentation" class="active"><a href="#home" id="curr-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Curriculum</a></li>
-					  <li role="presentation"><a href="#profile" role="tab" id="Students-tab" data-toggle="tab" aria-controls="profile">Students</a></li>
+					  <li role="presentation"><a href="#profile" role="tab" id="Students-tab" data-toggle="tab" aria-controls="profile">Enlisted Students</a></li>
 					  <li role="presentation"><a href="#subjects" role="tab" id="subjects-tab" data-toggle="tab" aria-controls="subs">Subjects</a></li>
+					  <li role="presentation"><a href="#students" role="tab" id="s-tab" data-toggle="tab" aria-controls="subs">Students</a></li>
+					
 					</ul>
 					<div id="myTabContent" class="tab-content">
 					  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
 						<div class="well">
-						<div class="table-responsive" id="tbl2">
+						<div class="table-responsive" id="ctbl1">
 									<table class="table table-striped" id="tbl1">
 										<thead><tr><th>Curriculum Name</th><th># of Enlisted</th></tr></thead>
 									<tbody id="tblCurr">
@@ -247,9 +249,9 @@ div.content {
 					 </div>
 					  <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
 						<div class="well">
-							<div class="table-responsive" id="tbl2">
-									<table class="table table-striped" id="tbl1">
-									<thead><tr><th>Student ID</th><th>Student Name</th><th>Course</th><th># of Enlisted</th></tr></thead>
+							<div class="table-responsive" id="ctbl2">
+									<table class="table table-striped" id="tbl2">
+									<thead><tr><th>Student ID</th><th>Student Name</th><th>Course</th><th># of Enlisted</th><th>Schedule</th></tr></thead>
 									<tbody id="tblStudents">
 									
 									</tbody>
@@ -259,10 +261,22 @@ div.content {
 					 </div>
 					  <div role="tabpanel" class="tab-pane fade" id="subjects" aria-labelledby="subjects-tab">
 						<div class="well">
-							<div class="table-responsive" id="tbl2">
+							<div class="table-responsive" id="ctbl3	">
 								<table class="table table-striped" id="tbl1">
 										<thead><tr><th>Subject Code</th><th>Title</th><th># of Enlisted</th></tr></thead>
 									<tbody id="tblSubjects">
+									
+									</tbody>
+									</table>
+							</div>
+						</div>
+					 </div>
+					  <div role="tabpanel" class="tab-pane fade" id="students" aria-labelledby="s-tab">
+						<div class="well">
+							<div class="table-responsive" id="ctbl3	">
+								<table class="table table-striped" id="tbl4">
+										<thead><tr><th>Student ID</th><th>First Name</th><th>Last Name</th><th>COURSE</th><th>SCHEDULE</tr></thead>
+									<tbody id="tblStats">
 									
 									</tbody>
 									</table>
@@ -332,8 +346,8 @@ div.content {
     <!-- Bootstrap 3.3.5 -->
     <script src="js/bootstrap.min.js"></script>
     <script src="dist/js/app.min.js"></script>
-	<script src="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css"></script>
-	<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+
 	<script>
 
 	
@@ -356,7 +370,9 @@ div.content {
 			"<tr id="+v.ID+" class=\"checkEnlisted\"><td data-th=\"ID\">"+v.ID+
 			"<td data-th=\"Name\">"+v.LNAME+", "+v.FNAME+
 			"<td data-th=\"COURSE\">"+v.COURSE+
-			"<td data-th =\"Name\">"+v.ENLISTED
+			"<td data-th =\"ENLISTED\">"+v.ENLISTED+
+			"<td data-th =\"SHIFT\">"+v.SHIFT
+			
 			);
 	               
 		});
@@ -365,6 +381,15 @@ div.content {
 			"<tr id="+v.ID+" ><td data-th=\"ID\">"+v.CODE+
 			"<td data-th=\"TITLE\">"+v.TITLE+
 			"<td data-th=\"ENLIST\">"+v.ENLISTED
+			);
+		});
+		$.each(data.LISTS.stats,function(k,v){
+			$("#tblStats").append(
+			"<tr id="+v.ID+" ><td data-th=\"CODE\">"+v.ID+
+			"<td data-th=\"FNAME\">"+v.FNAME+
+			"<td data-th=\"LNAME\">"+v.LNAME+
+			"<td data-th=\"ENLIST\">"+v.COURSE+
+			"<td data-th=\"ENLIST\">"+v.STATUS
 			);
 		});
 		
@@ -425,7 +450,8 @@ div.content {
                         $('#showEnlisted').modal('show');
                 }) 	
 				$('#divLoading').removeClass('show')
-	
+	$('#tbl2').DataTable()
+	$('#tbl4').DataTable()
 	}
 	
 	});
