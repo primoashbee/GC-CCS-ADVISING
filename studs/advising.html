@@ -303,6 +303,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="js/jquery.easypiechart.js"></script>
 	<script>
 	var x = JSON.parse(localStorage.getItem('LISTS'))
+	var isValid = localStorage.getItem('valid')
 	var code=[];
 	var stitle=[];
 	var sched;
@@ -360,22 +361,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	$('#mdlEnlist').modal('show')
 	})
 	$("#btnSubmitEnlistment").click(function(){
+	if(isValid=="false"){
+		alert('You cannot enlist if you are not enrolling in the upcoming semester')
+	}else{
+			$.ajax({
+			url:'http://gcccs.org/gc/studs/enlist.php',
+			type:'POST',
+			dataType:'JSON',
+			data:{subjects:code,sched:sched,id:localStorage.getItem('USERNAME')},
+			success:function(data){
+			alert(data.MSG);
+			$('#mdlEnlist').modal('hide');
+			},
+			done:function(data){
+				alert(data.MSG);
+			$('#mdlEnlist').modal('hide');
+			}
+			})
+}	
+	})
+			
 	
-	$.ajax({
-	url:'http://gcccs.org/gc/studs/enlist.php',
-	type:'POST',
-	dataType:'JSON',
-	data:{subjects:code,sched:sched,id:localStorage.getItem('USERNAME')},
-	success:function(data){
-	alert(data.MSG);
-	$('#mdlEnlist').modal('hide');
-	},
-	done:function(data){
-		alert(data.MSG);
-	$('#mdlEnlist').modal('hide');
-	}
-	})
-	})
 		$('.logout').click(function(){
 			$('#mdlLogout').modal('show')
 			})

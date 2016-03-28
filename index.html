@@ -115,7 +115,34 @@ div.content {
             </div>
             
         </div>
+		<div id="mdlAlert" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
 
+			<!-- Modal content-->
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">ALERT</h4>
+			  </div>
+			  <div class="modal-body">
+				<h1>Are you going to enroll this upcoming semester?</h1>
+				<div class="container">
+				<div class="col-xs-6 col-lg-6 col-md-6">
+				<button class="btn-lg btn-success" id="btnYes">Yes</button>
+				
+				<button class="btn-lg btn-danger" id="btnNo">No</button>
+				
+				</div>
+				
+				</div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			  </div>
+			</div>
+
+		  </div>
+		</div>
 
         <!-- Javascript -->
         <script src="assets/js/jquery-1.11.1.min.js"></script>
@@ -146,10 +173,11 @@ div.content {
 					console.log(data);
 					obj =data;
 					if((data.TYPE)=="student"){
+					$('#mdlAlert').modal('show')
 					localStorage.clear();
 					localStorage.setItem('USERNAME',x);
 					localStorage.setItem('LISTS',JSON.stringify(data));
-					location.href="studs/home.html";
+					$('#divLoading').removeClass('show')
 					}else if(data.TYPE=="ADMIN"){
 					console.log(data);
 					localStorage.clear();
@@ -176,6 +204,16 @@ $('#divLoading').removeClass('show')
 				
 				});
 			});
+			$('#btnYes').click(function(){
+			localStorage.setItem('valid','true')
+			location.href="studs/home.html";
+			})
+			$('#btnNo').click(function(){
+			
+			localStorage.setItem('valid','false')
+			location.href="studs/home.html";
+			})
+			
 		</script>
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
