@@ -155,9 +155,10 @@ div.content {
         <script src="assets/js/scripts.js"></script>
         <script>
 		var obj={};
+		var x,z;
 		$("#btnSign").click(function(){
 		$('#divLoading').addClass('show')
-		var x,z;
+		
 		x = $('#form-username').val();
 		z = $('#form-password').val();
 				if((x=="")||(z=="")){
@@ -221,9 +222,20 @@ $('#divLoading').removeClass('show')
 				if(reasons==""){
 				alert('Please provide reason')
 				}else{
-				localStorage.setItem('valid','false')
-				location.href="studs/home.html";
-			
+					$.ajax({
+					url:'http://gcccs.org/gc/survey.php',
+					data:{id:x,reason:reasons},
+					dataType:'JSON',
+					type:'POST',
+					success:function(data){
+					if(data.MSG="GOOD"){
+					
+					
+						localStorage.setItem('valid','false')
+						location.href="studs/home.html";
+						}
+						}
+					})
 				}
 			
 			})
